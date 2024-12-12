@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://j48kbuc5aeum"]
+[gd_scene load_steps=24 format=3 uid="uid://j48kbuc5aeum"]
 
 [ext_resource type="Script" path="res://Scripts/time_control.gd" id="1_6fb1j"]
 [ext_resource type="Texture2D" uid="uid://dvgnybiq5hyvd" path="res://Sprites/Panels/gray-panel-2px-border.png" id="2_0rf1v"]
@@ -19,6 +19,22 @@
 [ext_resource type="Texture2D" uid="uid://dxb6m2fsbiquw" path="res://Sprites/Buttons/time-add-button-hover.png" id="15_oyd2v"]
 [ext_resource type="Texture2D" uid="uid://b0v60n4qau5ek" path="res://Sprites/Buttons/time-add-button-disabled.png" id="16_em3f6"]
 [ext_resource type="Texture2D" uid="uid://b73udptx3mded" path="res://Sprites/Buttons/time-add-button-focus.png" id="17_i77lj"]
+
+[sub_resource type="Gradient" id="Gradient_aemar"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.314316, 0.314316, 0.314316, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nsyo"]
+gradient = SubResource("Gradient_aemar")
+width = 32
+
+[sub_resource type="Gradient" id="Gradient_0rn8w"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6gawk"]
+gradient = SubResource("Gradient_0rn8w")
+width = 32
 
 [node name="TimeControl" type="MarginContainer"]
 offset_left = 290.0
@@ -62,7 +78,11 @@ stretch_mode = 3
 [node name="KeyFocusComponent" type="Node" parent="InnerMargin/InnerBox/HalveButton"]
 script = ExtResource("8_u5rks")
 
-[node name="DurationLabel" type="Label" parent="InnerMargin/InnerBox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InnerMargin/InnerBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="DurationLabel" type="Label" parent="InnerMargin/InnerBox/VBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -72,6 +92,14 @@ theme_override_font_sizes/font_size = 8
 text = "2048"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PanicModeBar" type="TextureProgressBar" parent="InnerMargin/InnerBox/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+max_value = 32.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture1D_6nsyo")
+texture_progress = SubResource("GradientTexture1D_6gawk")
 
 [node name="DoubleButton" type="TextureButton" parent="InnerMargin/InnerBox"]
 layout_mode = 2

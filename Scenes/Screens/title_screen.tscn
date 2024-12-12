@@ -424,6 +424,42 @@ text = "Normal"
 horizontal_alignment = 1
 script = ExtResource("49_0s7t2")
 
+[node name="PanicBox" type="HBoxContainer" parent="SettingsBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="PanicButton" type="TextureButton" parent="SettingsBox/PanicBox"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../MusicSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../ButtonBox/ResetButton")
+focus_next = NodePath("../../ButtonBox/ResetButton")
+focus_previous = NodePath("../../MusicSlider")
+toggle_mode = true
+texture_normal = ExtResource("46_vdmvh")
+texture_pressed = ExtResource("47_33r44")
+texture_hover = ExtResource("48_cdqxq")
+texture_disabled = ExtResource("47_33r44")
+texture_focused = ExtResource("24_n3tcr")
+stretch_mode = 3
+
+[node name="KeyFocusComponent" type="Node" parent="SettingsBox/PanicBox/PanicButton"]
+script = ExtResource("26_nshxy")
+
+[node name="DifficultyLabel" type="Label" parent="SettingsBox/PanicBox"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.87451, 0.878431, 0.886275, 1)
+theme_override_fonts/font = ExtResource("37_ieih4")
+theme_override_font_sizes/font_size = 16
+text = "Panic Off"
+horizontal_alignment = 1
+
 [node name="ButtonBox" type="HBoxContainer" parent="SettingsBox"]
 layout_mode = 2
 
@@ -578,6 +614,21 @@ vertical_alignment = 1
 [node name="ConfirmFader" type="Node" parent="ConfirmCover"]
 script = ExtResource("46_1dsgu")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.5
+offset_top = -23.0
+offset_right = 46.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("37_ieih4")
+text = "Tom's Mods :3"
+
 [connection signal="pressed" from="MenuBox/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MenuBox/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MenuBox/ExitButton" to="." method="_on_exit_button_pressed"]
@@ -591,6 +642,7 @@ script = ExtResource("46_1dsgu")
 [connection signal="pressed" from="HideButton" to="." method="_on_hide_button_pressed"]
 [connection signal="pressed" from="HideButton" to="HideButton/HoverFadeComponent" method="trigger_hover"]
 [connection signal="toggled" from="SettingsBox/HardBox/HardButton" to="." method="_on_hard_button_toggled"]
+[connection signal="toggled" from="SettingsBox/PanicBox/PanicButton" to="." method="_on_panic_button_toggled"]
 [connection signal="pressed" from="SettingsBox/ButtonBox/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="SettingsBox/ButtonBox/FullscreenButton" to="SettingsBox/ButtonBox/FullscreenButton" method="_on_pressed"]
 [connection signal="pressed" from="ConfirmCover/ConfirmWindow/DeleteConfirm/ButtonBox/ConfirmButton" to="." method="_on_confirm_button_pressed"]

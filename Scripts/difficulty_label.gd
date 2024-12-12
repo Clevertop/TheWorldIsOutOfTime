@@ -1,5 +1,5 @@
 extends Label
-class_name DifficultyLabel
+class_name DifficultyLabel2
 
 @export
 var normal_text : String = "Normal"

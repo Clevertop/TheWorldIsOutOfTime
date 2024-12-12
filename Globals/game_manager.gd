@@ -88,7 +88,8 @@ var max_speed_multiplier : float = base_max_speed_multiplier
 var screensaver_speed_multiplier : int = 4
 
 var hard_mode : bool = false
-const hard_mode_day_length : float = 0.6
+var panic_mode : bool = false
+var hard_mode_day_length : float = 0.6
 var hard_mode_speed : float = 1.0
 var paused : bool = false
 
@@ -188,6 +189,12 @@ func deactivate_hard_mode():
 	hard_mode = false
 	setup_game()
 	hard_mode_toggled.emit()
+
+func activate_panic_mode():
+	panic_mode = true
+
+func deactivate_panic_mode():
+	panic_mode = false
 
 func _physics_process(delta: float) -> void:
 	if game_state == GameState.MENU:

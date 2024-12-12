@@ -58,6 +58,8 @@ var play_button : TextureButton = $MenuBox/PlayButton
 var settings_button : TextureButton = $MenuBox/SettingsButton
 @onready
 var exit_button : TextureButton = $MenuBox/ExitButton
+@onready
+var panic_button : TextureButton = $SettingsBox/PanicBox/PanicButton
 
 const max_speed : int = 16
 
@@ -135,6 +137,9 @@ func _physics_process(_delta: float) -> void:
 	
 	previous_time = current_time
 	previous_raw_time = raw_time
+	
+	$SettingsBox/PanicBox/DifficultyLabel.text = "Panic On" if GameManager.panic_mode else "Panic Off"
+	$SettingsBox/PanicBox/PanicButton.disabled = false if GameManager.hard_mode else true
 
 func update_clock_hands():
 	var seconds_passed : int = registered_seconds
@@ -345,5 +350,16 @@ func _on_cancel_button_pressed() -> void:
 func _on_hard_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		GameManager.activate_hard_mode()
+		panic_button.disabled = false
 	else:
 		GameManager.deactivate_hard_mode()
+		panic_button.button_pressed = false
+		_on_panic_button_toggled(false)
+		panic_button.disabled = false
+
+
+func _on_panic_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		GameManager.activate_panic_mode()
+	else:
+		GameManager.deactivate_panic_mode()
