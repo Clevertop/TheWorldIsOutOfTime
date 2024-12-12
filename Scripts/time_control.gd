@@ -25,9 +25,10 @@ func _ready() -> void:
 	update_buttons()
 	
 func _process(delta: float) -> void:
+	
 	if GameManager.panic_mode:
-		GameManager.panic_mode_elapsed += delta
-	update_panic(delta)
+		#GameManager.panic_mode_elapsed += delta
+		update_panic(delta)
 	update_bar()
 	
 
@@ -142,7 +143,7 @@ func update_bar():
 	panic_mode_bar.value = (GameManager.panic_mode_elapsed/ GameManager.panic_mode_delay) * 32
 
 func update_panic(delta : float):
-	GameManager.panic_mode_elapsed += delta
+	#GameManager.panic_mode_elapsed += delta
 	if GameManager.panic_mode_elapsed > GameManager.panic_mode_delay:
 		GameManager.panic_mode_mult += 1
 		GameManager.hard_mode_day_length = 0.6 / GameManager.panic_mode_mult
