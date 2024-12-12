@@ -5,10 +5,6 @@ var selected_exponent : int = 0
 var max_exponent : int = 12
 var max_hard_exponent : int = 8
 
-var panic_mode_mult : int = 1
-var panic_mode_delay : float = 70
-var panic_mode_elapsed : float = 0
-
 @onready
 var duration_label : Label = $InnerMargin/InnerBox/VBoxContainer/DurationLabel
 @onready
@@ -22,8 +18,6 @@ var double_button : TextureButton = $InnerMargin/InnerBox/DoubleButton
 var timeskip_button : TextureButton = $InnerMargin/InnerBox/TimeskipButton
 
 func _ready() -> void:
-	panic_mode_elapsed = 0
-	panic_mode_mult = 1
 	GameManager.timeskip_started.connect(on_timeskip_started)
 	GameManager.timeskip_ended.connect(on_timeskip_ended)
 	GameManager.day_ended.connect(on_day_ended)
@@ -32,7 +26,7 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	if GameManager.panic_mode:
-		panic_mode_elapsed += delta
+		GameManager.panic_mode_elapsed += delta
 	update_panic(delta)
 	update_bar()
 	
@@ -123,6 +117,10 @@ func update_buttons():
 			double_button.disabled = true
 		else:
 			double_button.disabled = false
+	
+	if GameManager.panic_mode:
+		double_button.disabled = true
+		halve_button.disabled = true
 
 func update_label():
 	if GameManager.is_timeskipping():
@@ -137,18 +135,18 @@ func update_label():
 		duration_label.add_theme_color_override("font_color", UIManager.palette_black)
 	
 	if(GameManager.panic_mode):
-		duration_label.text = str(panic_mode_mult)
+		duration_label.text = str(GameManager.panic_mode_mult)
 
 func update_bar():
 	panic_mode_bar.visible = GameManager.panic_mode
-	panic_mode_bar.value = (panic_mode_elapsed/ panic_mode_delay) * 32
+	panic_mode_bar.value = (GameManager.panic_mode_elapsed/ GameManager.panic_mode_delay) * 32
 
 func update_panic(delta : float):
-	panic_mode_elapsed += delta
-	if panic_mode_elapsed > panic_mode_delay:
-		panic_mode_mult += 1
-		GameManager.hard_mode_day_length = 0.6 / panic_mode_mult
-		panic_mode_elapsed = 0
+	GameManager.panic_mode_elapsed += delta
+	if GameManager.panic_mode_elapsed > GameManager.panic_mode_delay:
+		GameManager.panic_mode_mult += 1
+		GameManager.hard_mode_day_length = 0.6 / GameManager.panic_mode_mult
+		GameManager.panic_mode_elapsed = 0
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

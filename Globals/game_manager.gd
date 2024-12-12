@@ -89,6 +89,9 @@ var screensaver_speed_multiplier : int = 4
 
 var hard_mode : bool = false
 var panic_mode : bool = false
+var panic_mode_mult : int = 1
+var panic_mode_delay : float = 70
+var panic_mode_elapsed : float = 0
 var hard_mode_day_length : float = 0.6
 var hard_mode_speed : float = 1.0
 var paused : bool = false
@@ -116,6 +119,8 @@ func _ready() -> void:
 	setup_game()
 
 func setup_game():
+	panic_mode_elapsed = 0
+	panic_mode_mult = 1
 	if SaveManager.has_planets:
 		setup_game_from_save()
 		return
