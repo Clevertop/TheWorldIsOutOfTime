@@ -6,7 +6,7 @@ var max_exponent : int = 12
 var max_hard_exponent : int = 8
 
 var panic_mode_mult : int = 1
-var panic_mode_delay : float = 60
+var panic_mode_delay : float = 70
 var panic_mode_elapsed : float = 0
 
 @onready
